@@ -31,15 +31,61 @@ int main(int argc, char const *argv[])
                 {
                     do
                     {
+                        salida_gen = 0;
                         printf("Seleccione modo de juego: \n 1 - Jugador vs Jugador\n 2 - Jugador vs Maquina\n 3 - Regresar a menu\n");
                         scanf("%i", &modo_de_juego);
                         if (modo_de_juego == 1)
                         {
-                            printf("control1\n");
+                            printf("%cJugador vs Jugador\n", flecha);
+                            do
+                            {
+                                printf("%cQue desea hacer a continuacion?\n",inte);
+                                printf("1 - Volver a jugar\n2 - Volver al menu\n");
+                                scanf("%i", &salida_gen);
+                                if (salida_gen == 2)
+                                {
+                                    volver_menu = 1;
+                                }
+                                else
+                                {
+                                    printf("Selecciona una opcion valida [1-2]\n");
+                                }
+                            } while (volver_menu != 1);
                         }
                         else if (modo_de_juego == 2)
                         {
-                            printf("control2\n");
+                            printf("%cJugador vs Maquina\n", flecha);
+                            do
+                            {   
+                                int inicia = 0; // Para decidir quien inicia turno
+                                printf("%cQuien inicia?\n1 - Jugador\n2 - Maquina\n", inte);
+                                scanf("%i", &inicia);
+                                if (inicia==1)
+                                {
+                                    do
+                                    {
+                                        printf("%cQue desea hacer a continuacion?/n",inte);
+                                        printf("1 - Volver a jugar\n2 - Volver al menu");
+                                        scanf("%i", &salida_gen);
+                                    } while (salida_gen != 2);
+                                    volver_menu = 1;
+                                }
+                                else if (inicia==2)
+                                {
+                                     do
+                                    {
+                                        printf("%cQue desea hacer a continuacion?/n",inte);
+                                        printf("1 - Volver a jugar\n2 - Volver al menu");
+                                        scanf("%i", &salida_gen);
+                                    } while (salida_gen != 2);
+                                    volver_menu = 1;
+                                }
+                                else
+                                {
+                                    printf("Ingresa una opcion valida[1-2]\n");
+                                }
+                            } while (volver_menu != 1);
+                            
                         }
                         else if (modo_de_juego == 3)
                         {

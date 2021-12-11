@@ -8,14 +8,14 @@ void casillas();
 
 struct datos
 {
-    int gato[3][3]; //Matriz base del juego
+    char gato[3][3]; //Matriz base del juego
     int turno; //Numero del turno
     int modo;
 }dat_juego;
 
 int main(int argc, char const *argv[])
 {
-    char excla=173, oacento=162, inte=168, flecha=175, iacento=161, uacento=163;
+    char excla=173, oacento=162, inte=168, flecha=175, iacento=161, uacento=163, control;
     int salida_menu=0, opcion_menu, volver_menu, salida_gen=0, modo_de_juego;
     printf("%cBienvenido al juego del Gato!\n",excla);
     printf("Selecciona lo que deseas hacer a continuaci%cn:\n", oacento);
@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
         {
             do
             {
-                if (opcion_menu = 1)
+                if (opcion_menu == 1)
                 {
                     do
                     {
@@ -43,16 +43,16 @@ int main(int argc, char const *argv[])
                         }
                         else if (modo_de_juego == 3)
                         {
-                            volver_menu=1;
+                            volver_menu = 1;
                         }
                         else if (modo_de_juego <1 || modo_de_juego>3)
                         {
                             printf("Ingresa una opcion valida[1-3]\n");
                         }
-                    } while (volver_menu != 1);
+                    } while (volver_menu!= 1);    
                 }
-
-                else if (opcion_menu = 2)
+                
+                else if (opcion_menu == 2)
                 {
                     do
                     {
@@ -64,9 +64,24 @@ int main(int argc, char const *argv[])
                         scanf("%i", &volver_menu);
                     } while(volver_menu != 1);
                 }
+                else if(opcion_menu == 3)
+                {
+                    FILE *fichero;
+                    fichero = fopen("gato.txt","w");
+                    if(fichero == NULL) 
+                    {
+		                printf("El fichero no se ha podido abrir, no existe.");
+	                } 
+                    else 
+                    {
+                        printf("El fichero existe y esta en la direccion: %p\n",fichero);
+                    }
+		            fclose(fichero);
+                    volver_menu = 1;
+                }
             } while(volver_menu != 1);
-        }
-        else if (opcion_menu == 4)
+        }    
+        else if(opcion_menu == 4)
         {
             salida_menu=1;
         }
@@ -75,6 +90,20 @@ int main(int argc, char const *argv[])
             printf("Debes ingresar una opci%cn valida [1-4]\n\n", oacento);
         }
     } while(salida_menu!=1);
-
 return 0;
+}
+
+void casillas()
+{
+    for (int i=0; i<=2; i++)
+    {
+        for (int j=0; j<=2; j++)
+        {
+            printf("| %c", dat_juego.gato[i][j]);   
+            
+        }
+        printf("|");
+        printf("\n-------");
+        printf("\n");   
+    }
 }

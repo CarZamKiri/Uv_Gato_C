@@ -5,12 +5,12 @@ void jugador();
 void computadora();
 int ganador();
 void casillas();
+void gatotxt();
 
 struct datos
 {
     char gato[3][3]; //Matriz base del juego
     int turno; //Numero del turno
-    int modo;
 }dat_juego;
 
 int main(int argc, char const *argv[])
@@ -66,17 +66,7 @@ int main(int argc, char const *argv[])
                 }
                 else if(opcion_menu == 3)
                 {
-                    FILE *fichero;
-                    fichero = fopen("gato.txt","w");
-                    if(fichero == NULL) 
-                    {
-		                printf("El fichero no se ha podido abrir, no existe.");
-	                } 
-                    else 
-                    {
-                        printf("El fichero existe y esta en la direccion: %p\n",fichero);
-                    }
-		            fclose(fichero);
+                    gatotxt();
                     volver_menu = 1;
                 }
             } while(volver_menu != 1);
@@ -106,4 +96,36 @@ void casillas()
         printf("\n-------");
         printf("\n");   
     }
+}
+
+void gatotxt()
+{
+    FILE *fichero = fopen("gato.txt","wt");
+    if(fichero == NULL) 
+    {
+		printf("El fichero no se ha podido abrir, no existe.");
+	} 
+    else 
+    {
+        printf("El fichero existe y esta en la direccion: %p\n",fichero);
+    }
+    int i=0,j=0;
+    char matriz[21][21]=
+    { 
+		"      [0]  [1]  [2]  ",
+		"[0] ||   ||   ||   ||",
+		"    -----------------",
+		"[1] ||   ||   ||   ||",
+		"    -----------------",
+		"[2] ||   ||   ||   ||",
+	};
+    for(i=0;i<21;i++){
+		for(j=0;j<21;j++){	
+            
+			fputc(matriz[i][j],fichero); //Se imprime la matriz en el txt
+		}
+		fputs("\n", fichero); //Saltos correspondientes en txt 
+	}
+	
+	fclose(fichero); //Cierre de fichero para liberar memoria
 }

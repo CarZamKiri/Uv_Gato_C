@@ -6,6 +6,7 @@ void computadora();
 int ganador();
 void casillas();
 void gatotxt();
+void limpieza();
 
 struct datos
 {
@@ -174,4 +175,91 @@ void gatotxt()
 	}
 	
 	fclose(fichero); //Cierre de fichero para liberar memoria
+}
+
+int ganador()
+{
+    if (dat_juego.gato[0][0] == "X" && dat_juego.gato[1][0] == "X" && dat_juego.gato[2][0] == "X")
+    {
+        return 1;
+    }
+    else if (dat_juego.gato[0][0] == "X" && dat_juego.gato[0][1] == "X" && dat_juego.gato[0][2] == "X")
+    {
+        return 1;
+    }
+    else if (dat_juego.gato[1][0] == "X" && dat_juego.gato[1][1] == "X" && dat_juego.gato[1][2] == "X")
+    {
+        return 1;
+    }
+    else if (dat_juego.gato[2][0] == "X" && dat_juego.gato[2][1] == "X" && dat_juego.gato[2][2] == "X")
+    {
+        return 1;
+    }
+    else if (dat_juego.gato[0][1] == "X" && dat_juego.gato[1][1] == "X" && dat_juego.gato[2][1] == "X")
+    {
+        return 1;
+    }
+    else if (dat_juego.gato[0][2] == "X" && dat_juego.gato[1][2] == "X" && dat_juego.gato[2][2] == "X")
+    {
+        return 1;
+    }
+    else if (dat_juego.gato[0][0] == "X" && dat_juego.gato[1][1] == "X" && dat_juego.gato[2][2] == "X")
+    {
+        return 1;
+    }
+    else if (dat_juego.gato[0][2] == "X" && dat_juego.gato[1][1] == "X" && dat_juego.gato[2][0] == "X")
+    {
+        return 1; 
+    }
+    //Termina Verificacion de x
+    if (dat_juego.gato[0][0] == "O" && dat_juego.gato[1][0] == "O" && dat_juego.gato[2][0] == "O")
+    {
+        return 0;
+    }
+    else if (dat_juego.gato[0][0] == "O" && dat_juego.gato[0][1] == "O" && dat_juego.gato[0][2] == "O")
+    {
+        return 0;
+    }
+    else if (dat_juego.gato[1][0] == "O" && dat_juego.gato[1][1] == "O" && dat_juego.gato[1][2] == "O")
+    {
+        return 0;
+    }
+    else if (dat_juego.gato[2][0] == "O" && dat_juego.gato[2][1] == "O" && dat_juego.gato[2][2] == "O")
+    {
+        return 0;
+    }
+    else if (dat_juego.gato[0][1] == "O" && dat_juego.gato[1][1] == "O" && dat_juego.gato[2][1] == "O")
+    {
+        return 0;
+    }
+    else if (dat_juego.gato[0][2] == "O" && dat_juego.gato[1][2] == "O" && dat_juego.gato[2][2] == "O")
+    {
+        return 0;
+    }
+    else if (dat_juego.gato[0][0] == "O" && dat_juego.gato[1][1] == "O" && dat_juego.gato[2][2] == "O")
+    {
+        return 0;
+    }
+    else if (dat_juego.gato[0][2] == "O" && dat_juego.gato[1][1] == "O" && dat_juego.gato[2][0] == "O")
+    {
+        return 0;
+    }
+    //Termina Verificacion de Y
+    else
+    {
+        return 2; //Da empate
+    }
+}
+
+void limpieza()
+{
+    char nulo=00;
+    int i=0, j=0;
+    for (int i=0; i<=2; i++)
+    {
+        for (int j=0; j<=2; j++)
+        {
+            dat_juego.gato[i][j] = nulo;
+        }
+    }
 }

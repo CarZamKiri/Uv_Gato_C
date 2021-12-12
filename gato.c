@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <time.h>
 
-void jugador();
-void computadora();
 int ganador();
 void casillas();
 void gatotxt();
 void limpieza();
+char tirada();
+void jugadorvsjugador();
 
 struct datos
 {
@@ -40,17 +40,8 @@ int main(int argc, char const *argv[])
                             printf("%cJugador vs Jugador\n", flecha);
                             do
                             {
-                                printf("%cQue desea hacer a continuacion?\n",inte);
-                                printf("1 - Volver a jugar\n2 - Volver al menu\n");
-                                scanf("%i", &salida_gen);
-                                if (salida_gen == 2)
-                                {
-                                    volver_menu = 1;
-                                }
-                                else
-                                {
-                                    printf("Selecciona una opcion valida [1-2]\n");
-                                }
+                                jugadorvsjugador();
+                                volver_menu = 1;
                             } while (volver_menu != 1);
                         }
                         else if (modo_de_juego == 2)
@@ -179,75 +170,80 @@ void gatotxt()
 
 int ganador()
 {
-    if (dat_juego.gato[0][0] == "X" && dat_juego.gato[1][0] == "X" && dat_juego.gato[2][0] == "X")
+    char nulo=00;
+    if (dat_juego.gato[0][0] == 'X' && dat_juego.gato[0][1] == 'X' && dat_juego.gato[0][2] == 'X')
     {
         return 1;
     }
-    else if (dat_juego.gato[0][0] == "X" && dat_juego.gato[0][1] == "X" && dat_juego.gato[0][2] == "X")
+    else if (dat_juego.gato[1][0] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[1][2] == 'X')
     {
         return 1;
     }
-    else if (dat_juego.gato[1][0] == "X" && dat_juego.gato[1][1] == "X" && dat_juego.gato[1][2] == "X")
+    else if (dat_juego.gato[2][0] == 'X' && dat_juego.gato[2][1] == 'X' && dat_juego.gato[2][2] == 'X')
     {
         return 1;
     }
-    else if (dat_juego.gato[2][0] == "X" && dat_juego.gato[2][1] == "X" && dat_juego.gato[2][2] == "X")
+    else if (dat_juego.gato[0][0] == 'X' && dat_juego.gato[0][1] == 'X' && dat_juego.gato[0][2] == 'X')
     {
         return 1;
     }
-    else if (dat_juego.gato[0][1] == "X" && dat_juego.gato[1][1] == "X" && dat_juego.gato[2][1] == "X")
+    else if (dat_juego.gato[1][0] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[1][2] == 'X')
     {
         return 1;
     }
-    else if (dat_juego.gato[0][2] == "X" && dat_juego.gato[1][2] == "X" && dat_juego.gato[2][2] == "X")
+    else if (dat_juego.gato[2][0] == 'X' && dat_juego.gato[2][1] == 'X' && dat_juego.gato[2][2] == 'X')
     {
         return 1;
     }
-    else if (dat_juego.gato[0][0] == "X" && dat_juego.gato[1][1] == "X" && dat_juego.gato[2][2] == "X")
+    else if (dat_juego.gato[0][0] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[2][2] == 'X')
     {
         return 1;
     }
-    else if (dat_juego.gato[0][2] == "X" && dat_juego.gato[1][1] == "X" && dat_juego.gato[2][0] == "X")
+    else if (dat_juego.gato[0][2] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[2][0] == 'X')
     {
         return 1; 
     }
     //Termina Verificacion de x
-    if (dat_juego.gato[0][0] == "O" && dat_juego.gato[1][0] == "O" && dat_juego.gato[2][0] == "O")
+    if (dat_juego.gato[0][0] == 'O' && dat_juego.gato[0][1] == 'O' && dat_juego.gato[0][2] == 'O')
     {
         return 0;
     }
-    else if (dat_juego.gato[0][0] == "O" && dat_juego.gato[0][1] == "O" && dat_juego.gato[0][2] == "O")
+    else if (dat_juego.gato[1][0] == 'O' && dat_juego.gato[1][1] == 'O' && dat_juego.gato[1][2] == 'O')
     {
         return 0;
     }
-    else if (dat_juego.gato[1][0] == "O" && dat_juego.gato[1][1] == "O" && dat_juego.gato[1][2] == "O")
+    else if (dat_juego.gato[2][0] =='"O' && dat_juego.gato[2][1] == 'O' && dat_juego.gato[2][2] == 'O')
     {
         return 0;
     }
-    else if (dat_juego.gato[2][0] == "O" && dat_juego.gato[2][1] == "O" && dat_juego.gato[2][2] == "O")
+    else if (dat_juego.gato[0][0] == 'O' && dat_juego.gato[0][1] == 'O' && dat_juego.gato[0][2] == 'O')
     {
         return 0;
     }
-    else if (dat_juego.gato[0][1] == "O" && dat_juego.gato[1][1] == "O" && dat_juego.gato[2][1] == "O")
+    else if (dat_juego.gato[1][0] == 'O' && dat_juego.gato[1][1] == 'O' && dat_juego.gato[1][2] == 'O')
     {
         return 0;
     }
-    else if (dat_juego.gato[0][2] == "O" && dat_juego.gato[1][2] == "O" && dat_juego.gato[2][2] == "O")
+    else if (dat_juego.gato[2][0] == 'O' && dat_juego.gato[2][1] == 'O' && dat_juego.gato[2][2] == 'O')
     {
         return 0;
     }
-    else if (dat_juego.gato[0][0] == "O" && dat_juego.gato[1][1] == "O" && dat_juego.gato[2][2] == "O")
+    else if (dat_juego.gato[0][0] == 'O' && dat_juego.gato[1][1] == 'O' && dat_juego.gato[2][2] =='"O')
     {
         return 0;
     }
-    else if (dat_juego.gato[0][2] == "O" && dat_juego.gato[1][1] == "O" && dat_juego.gato[2][0] == "O")
+    else if (dat_juego.gato[0][2] == 'O' && dat_juego.gato[1][1] == 'O' && dat_juego.gato[2][0] == 'O')
     {
         return 0;
     }
-    //Termina Verificacion de Y
+    //Termina Verificacion de O
+    else if (dat_juego.gato[0][0] != nulo && dat_juego.gato[0][1] != nulo && dat_juego.gato[0][2] != nulo && dat_juego.gato[1][0] != nulo && dat_juego.gato[1][1] != nulo && dat_juego.gato[1][2] != nulo && dat_juego.gato[2][0] != nulo && dat_juego.gato[2][1] != nulo && dat_juego.gato[2][2] != nulo)
+    {
+        return 3;// Declara empate
+    }
     else
     {
-        return 2; //Da empate
+        return 2; //Aun no hay ganador
     }
 }
 
@@ -262,4 +258,122 @@ void limpieza()
             dat_juego.gato[i][j] = nulo;
         }
     }
+}
+
+char tirada()
+{
+    int gana, salidax, salidao, continua, otra;
+    char nulo = 00;
+    int fila, columna;
+    do
+    {   
+        do
+        {
+            do
+            {
+                casillas();
+                salidax = 0, salidao = 0, continua = 0;
+                printf("Jugador 1\n");
+                printf("Ingresa Fila: ");
+                scanf("%i", &fila);
+                printf("Ingresa Columna: ");
+                scanf("%i", &columna);
+                if (dat_juego.gato[fila][columna] == nulo)
+                {
+                    dat_juego.gato[fila][columna] ='X';
+                    gana = ganador();
+                    if (gana == 1)
+                    {
+                        casillas();
+                        printf("Felicidades jugador 1, has ganado\n");
+                        salidax = 1;
+                        continua = 2;
+                    }
+                    else if (gana == 2)
+                    {
+                        salidax = 1;
+                        continua = 1;
+                    }
+                    else if (gana == 3)
+                    {
+                        casillas();
+                        salidax = 1;
+                        continua = 2;
+                        printf("Felicidades, han empatado\n");
+                    }
+                    else
+                    {
+                        continua = 1;
+                        salidax = 1;
+                    }
+                }
+                else
+                {
+                    printf("Posicion ocupada, ingresa una posicion libre\n");
+                }
+            } while (salidax != 1);
+            if (continua == 1)
+            {
+                casillas();
+                do
+                {
+                    printf("Jugador 2\n");
+                    printf("Ingresa Fila: ");
+                    scanf("%i", &fila);
+                    printf("Ingresa Columna: ");
+                    scanf("%i", &columna);
+                    if (dat_juego.gato[fila][columna] == nulo)
+                    {
+                        dat_juego.gato[fila][columna] ='O';
+                        gana = ganador();
+                        if (gana == 0)
+                        {
+                            casillas();
+                            printf("Felicidades jugador 2, has ganado\n");
+                            salidao = 1;
+                            continua = 2;
+                        }
+                        else if (gana == 2)
+                        {
+                            salidao = 1;
+                            continua = 1;
+                        }
+                        else if (gana == 3)
+                        {
+                            casillas();
+                            salidao = 1;
+                            continua = 2;
+                            printf("Felicidades, han empatado\n");
+                        }
+                        else
+                        {
+                            salidao = 1;
+                            continua = 1;
+                        }
+                    }
+                    else
+                    {
+                    printf("Posicion ocupada, ingresa una posicion libre\n");
+                    }
+                } while (salidao != 1);
+            }    
+        } while (continua != 2);
+        printf("Desea jugar nuevamente?\n1 - Si\n2 - No\n");
+        scanf("%i", &otra);
+        if (otra == 1)
+        {
+            limpieza();
+            continua = 1;
+        } 
+    } while (continua != 2);
+}
+
+void jugadorvsjugador()
+{
+    int simbolo = 0,salida_jugador = 0;
+    char simx = 'X', simo = 'O';
+    printf("Orden de jugadores\n");
+    printf("1 - X\n2 - O\n");
+    tirada();
+    limpieza();
 }

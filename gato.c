@@ -9,7 +9,8 @@ char tirada(); //Tiro JvsJ
 void jugadorvsjugador(); //Base JvsJ
 void tiradavsmaquina(); //Tiro JvsM
 void jugadorvsmaquina(); //Base JvsM
-void consejo(); 
+void consejox();
+void consejoy();
 
 struct datos
 {
@@ -53,7 +54,7 @@ int main(int argc, char const *argv[])
                             {
                                 jugadorvsmaquina();
                                 volver_menu = 1;
-                            } while (volver_menu != 1);   
+                            } while (volver_menu != 1);
                         }
                         else if (modo_de_juego == 3)
                         {
@@ -63,9 +64,9 @@ int main(int argc, char const *argv[])
                         {
                             printf("Ingresa una opcion valida[1-3]\n");
                         }
-                    } while (volver_menu!= 1);    
+                    } while (volver_menu!= 1);
                 }
-                
+
                 else if (opcion_menu == 2)
                 {
                     do
@@ -84,7 +85,7 @@ int main(int argc, char const *argv[])
                     volver_menu = 1;
                 }
             } while(volver_menu != 1);
-        }    
+        }
         else if(opcion_menu == 4)
         {
             salida_menu=1;
@@ -103,29 +104,29 @@ void casillas()
     {
         for (int j=0; j<=2; j++)
         {
-            printf("| %c", dat_juego.gato[i][j]);   
-            
+            printf("| %c", dat_juego.gato[i][j]);
+
         }
         printf("|");
         printf("\n-------");
-        printf("\n");   
+        printf("\n");
     }
 }
 
 void gatotxt()
 {
     FILE *fichero = fopen("gato.txt","wt");
-    if(fichero == NULL) 
+    if(fichero == NULL)
     {
 		printf("El fichero no se ha podido abrir, no existe.");
-	} 
-    else 
+	}
+    else
     {
         printf("El fichero existe y esta en la direccion: %p\n",fichero);
     }
     int i=0,j=0;
     char matriz[21][21]=
-    { 
+    {
 		"      [0]  [1]  [2]  ",
 		"[0] ||   ||   ||   ||",
 		"    -----------------",
@@ -134,13 +135,13 @@ void gatotxt()
 		"[2] ||   ||   ||   ||",
 	};
     for(i=0;i<21;i++){
-		for(j=0;j<21;j++){	
-            
+		for(j=0;j<21;j++){
+
 			fputc(matriz[i][j],fichero); //Se imprime la matriz en el txt
 		}
-		fputs("\n", fichero); //Saltos correspondientes en txt 
+		fputs("\n", fichero); //Saltos correspondientes en txt
 	}
-	
+
 	fclose(fichero); //Cierre de fichero para liberar memoria
 }
 
@@ -177,7 +178,7 @@ int ganador()
     }
     else if (dat_juego.gato[0][2] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[2][0] == 'X')
     {
-        return 1; 
+        return 1;
     }
     //Termina Verificacion de x
     if (dat_juego.gato[0][0] == 'O' && dat_juego.gato[0][1] == 'O' && dat_juego.gato[0][2] == 'O')
@@ -242,7 +243,7 @@ char tirada()
     char nulo = 00;
     int fila, columna;
     do
-    {   
+    {
         do
         {
             do
@@ -332,7 +333,7 @@ char tirada()
                     printf("Posicion ocupada, ingresa una posicion libre\n");
                     }
                 } while (salidao != 1);
-            }    
+            }
         } while (continua != 2);
         printf("Desea jugar nuevamente?\n1 - Si\n2 - No\n");
         scanf("%i", &otra);
@@ -340,7 +341,7 @@ char tirada()
         {
             limpieza();
             continua = 1;
-        } 
+        }
     } while (continua != 2);
 }
 
@@ -366,7 +367,7 @@ void tiradavsmaquina()
     int gana, salidax, salidao, continua, otra, simjuego;
     char nulo = 00, jugador, maquina;
     int fila, columna;
-    do 
+    do
     {
         do
         {
@@ -376,19 +377,26 @@ void tiradavsmaquina()
             {
                 jugador = 'X';
                 maquina = 'O';
-            } 
+            }
             else if (simjuego == 2)
             {
                 jugador = 'O';
                 maquina = 'X';
             }
-            do 
+            do
             {
                 do
                 {
-                    casillas(); 
+                    casillas();
                     salidax = 0, salidao = 0, continua = 0;
-                    consejo(); //Mostrar consejo si es posible
+                    if (simjuego == 1)
+                    {
+                        consejox(); //Mostrar consejo si es posible
+                    }
+                    else
+                    {
+                        consejoy();
+                    }
                     printf("Jugador 1\n");
                     printf("Ingresa Fila: ");
                     scanf("%i", &fila);
@@ -467,7 +475,7 @@ void tiradavsmaquina()
                             }
                         }
                     } while (salidao != 1);
-                }    
+                }
             } while (continua != 2);
             printf("Desea jugar nuevamente?\n1 - Si\n2 - No\n");
             scanf("%i", &otra);
@@ -475,12 +483,12 @@ void tiradavsmaquina()
             {
                 limpieza();
                 continua = 1;
-            } 
+            }
         } while (otra != 2);
     } while (otra != 2);
 }
 
-void consejo()
+void consejox()
 {
     char nulo = 00;
     if (dat_juego.gato[0][0] == 'X' && dat_juego.gato[0][1] == 'X' && dat_juego.gato[0][2] == nulo)
@@ -512,6 +520,43 @@ void consejo()
         printf("Se recomienda 2 - 2\n");
     }
     else if (dat_juego.gato[0][2] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[2][0] == nulo)
+    {
+        printf("Se recomienda 2 - 0\n") ;
+    }
+}
+
+void consejoy()
+{
+    char nulo = 00;
+    if (dat_juego.gato[0][0] == 'O' && dat_juego.gato[0][1] == 'O' && dat_juego.gato[0][2] == nulo)
+    {
+        printf("Se recomienda 0 - 2\n");
+    }
+    else if (dat_juego.gato[1][0] == 'O' && dat_juego.gato[1][1] == 'O' && dat_juego.gato[1][2] == nulo)
+    {
+        printf("Se recomienda 1 - 2\n");
+    }
+    else if (dat_juego.gato[2][0] == 'O' && dat_juego.gato[2][1] == 'O' && dat_juego.gato[2][2] == nulo)
+    {
+        printf("Se recomienda 2 - 2\n");
+    }
+    else if (dat_juego.gato[0][0] == 'O' && dat_juego.gato[0][1] == 'O' && dat_juego.gato[0][2] == nulo)
+    {
+        printf("Se recomienda 0 - 2\n");
+    }
+    else if (dat_juego.gato[1][0] == 'O' && dat_juego.gato[1][1] == 'O' && dat_juego.gato[1][2] == nulo)
+    {
+        printf("Se recomienda 1 - 2\n");
+    }
+    else if (dat_juego.gato[2][0] == 'O' && dat_juego.gato[2][1] == 'O' && dat_juego.gato[2][2] == nulo)
+    {
+        printf("Se recomienda 2 - 2\n");
+    }
+    else if (dat_juego.gato[0][0] == 'O' && dat_juego.gato[1][1] == 'O' && dat_juego.gato[2][2] == nulo)
+    {
+        printf("Se recomienda 2 - 2\n");
+    }
+    else if (dat_juego.gato[0][2] == 'O' && dat_juego.gato[1][1] == 'O' && dat_juego.gato[2][0] == nulo)
     {
         printf("Se recomienda 2 - 0\n") ;
     }

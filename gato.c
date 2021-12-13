@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <time.h>
 
-int ganador();
-void casillas();
-void gatotxt();
-void limpieza();
-char tirada();
-void jugadorvsjugador();
+int ganador(); //Calcula quien gano
+void casillas(); //Imprime el gato
+void gatotxt(); //Crea txt
+void limpieza(); //Limpia el tablero
+char tirada(); //Tiro JvsJ
+void jugadorvsjugador(); //Base JvsJ
+int tiradavsmaquina(); //Tiro JvsM
+void jugadorvsmaquina(); //Base JvsM
 
 struct datos
 {
@@ -17,7 +19,7 @@ struct datos
 int main(int argc, char const *argv[])
 {
     char excla=173, oacento=162, inte=168, flecha=175, iacento=161, uacento=163, control;
-    int salida_menu=0, opcion_menu, volver_menu, salida_gen=0, modo_de_juego;
+    int salida_menu=0, opcion_menu, volver_menu, salida_gen=0, modo_de_juego, jvsm;
     printf("%cBienvenido al juego del Gato!\n",excla);
     printf("Selecciona lo que deseas hacer a continuaci%cn:\n", oacento);
     do
@@ -48,36 +50,10 @@ int main(int argc, char const *argv[])
                         {
                             printf("%cJugador vs Maquina\n", flecha);
                             do
-                            {   
-                                int inicia = 0; // Para decidir quien inicia turno
-                                printf("%cQuien inicia?\n1 - Jugador\n2 - Maquina\n", inte);
-                                scanf("%i", &inicia);
-                                if (inicia==1)
-                                {
-                                    do
-                                    {
-                                        printf("%cQue desea hacer a continuacion?/n",inte);
-                                        printf("1 - Volver a jugar\n2 - Volver al menu");
-                                        scanf("%i", &salida_gen);
-                                    } while (salida_gen != 2);
-                                    volver_menu = 1;
-                                }
-                                else if (inicia==2)
-                                {
-                                     do
-                                    {
-                                        printf("%cQue desea hacer a continuacion?/n",inte);
-                                        printf("1 - Volver a jugar\n2 - Volver al menu");
-                                        scanf("%i", &salida_gen);
-                                    } while (salida_gen != 2);
-                                    volver_menu = 1;
-                                }
-                                else
-                                {
-                                    printf("Ingresa una opcion valida[1-2]\n");
-                                }
-                            } while (volver_menu != 1);
-                            
+                            {
+                                jugadorvsmaquina();
+                                volver_menu = 1;
+                            } while (volver_menu = 1);   
                         }
                         else if (modo_de_juego == 3)
                         {
@@ -118,7 +94,7 @@ int main(int argc, char const *argv[])
             printf("Debes ingresar una opci%cn valida [1-4]\n\n", oacento);
         }
     } while(salida_menu!=1);
-return 0;
+    return 0;
 }
 
 void casillas()
@@ -376,4 +352,127 @@ void jugadorvsjugador()
     printf("1 - X\n2 - O\n");
     tirada();
     limpieza();
+}
+
+void jugadorvsmaquina()
+{
+    int simbolo = 0,salida_jugador = 0;
+    tiradavsmaquina();
+    limpieza();
+}
+
+int tiradavsmaquina()
+{
+    int gana, salidax, salidao, continua, otra, simjuego;
+    char nulo = 00, jugador, maquina;
+    int fila, columna;
+    do
+    {
+        printf("Con que simbolo deseas Jugar?\n1 - X\n2 - O\n");
+        scanf("%i", &simjuego);
+        if (simjuego == 1)
+        {
+            jugador = 'X';
+            maquina = 'O';
+        } 
+        else if (simjuego == 2)
+        {
+            jugador = 'O';
+            maquina = 'X';
+        }
+        do 
+        {
+            do
+            {
+                casillas();
+                salidax = 0, salidao = 0, continua = 0;
+                printf("Jugador 1\n");
+                printf("Ingresa Fila: ");
+                scanf("%i", &fila);
+                printf("Ingresa Columna: ");
+                scanf("%i", &columna);
+                if (dat_juego.gato[fila][columna] == nulo)
+                {
+                    dat_juego.gato[fila][columna] = jugador;
+                    gana = ganador();
+                    if (gana == 1)
+                    {
+                        casillas();
+                        printf("Felicidades jugador 1, has ganado\n");
+                        salidax = 1;
+                        continua = 2;
+                    }
+                    else if (gana == 2)
+                    {
+                        salidax = 1;
+                        continua = 1;
+                    }
+                    else if (gana == 3)
+                    {
+                        casillas();
+                        salidax = 1;
+                        continua = 2;
+                        printf("Felicidades, han empatado\n");
+                    }
+                    else
+                    {
+                        continua = 1;
+                        salidax = 1;
+                    }
+                }
+                else
+                {
+                    printf("Posicion ocupada, ingresa una posicion libre\n");
+                }
+            } while (salidax != 1);
+            if (continua == 1)
+            {
+                casillas();
+                printf("Maquina\n");
+                do
+                {
+                    srand (time(NULL));
+                    fila = rand() % (2+1);
+                    columna = rand() % (2+1);
+                    if (dat_juego.gato[fila][columna] == nulo)
+                    {
+                        dat_juego.gato[fila][columna] = maquina;
+                        gana = ganador();
+                        if (gana == 0)
+                        {
+                            casillas();
+                            printf("Ha ganado la maquina\n");
+                            salidao = 1;
+                            continua = 2;
+                        }
+                        else if (gana == 2)
+                        {
+                            salidao = 1;
+                            continua = 1;
+                        }
+                        else if (gana == 3)
+                        {
+                            casillas();
+                            salidao = 1;
+                            continua = 2;
+                            printf("Felicidades, han empatado\n");
+                        }
+                        else
+                        {
+                            salidao = 1;
+                            continua = 1;
+                        }
+                    }
+                } while (salidao != 1);
+            }    
+        } while (continua != 2);
+        printf("Desea jugar nuevamente?\n1 - Si\n2 - No\n");
+        scanf("%i", &otra);
+        if (otra == 1)
+        {
+            limpieza();
+            continua = 1;
+        } 
+    } while (continua != 2);
+    return 0;
 }

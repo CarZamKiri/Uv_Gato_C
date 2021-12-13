@@ -7,7 +7,7 @@ void gatotxt(); //Crea txt
 void limpieza(); //Limpia el tablero
 char tirada(); //Tiro JvsJ
 void jugadorvsjugador(); //Base JvsJ
-int tiradavsmaquina(); //Tiro JvsM
+void tiradavsmaquina(); //Tiro JvsM
 void jugadorvsmaquina(); //Base JvsM
 
 struct datos
@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
                             {
                                 jugadorvsmaquina();
                                 volver_menu = 1;
-                            } while (volver_menu = 1);   
+                            } while (volver_menu != 1);   
                         }
                         else if (modo_de_juego == 3)
                         {
@@ -361,118 +361,120 @@ void jugadorvsmaquina()
     limpieza();
 }
 
-int tiradavsmaquina()
+void tiradavsmaquina()
 {
     int gana, salidax, salidao, continua, otra, simjuego;
     char nulo = 00, jugador, maquina;
     int fila, columna;
-    do
+    do 
     {
-        printf("Con que simbolo deseas Jugar?\n1 - X\n2 - O\n");
-        scanf("%i", &simjuego);
-        if (simjuego == 1)
+        do
         {
-            jugador = 'X';
-            maquina = 'O';
-        } 
-        else if (simjuego == 2)
-        {
-            jugador = 'O';
-            maquina = 'X';
-        }
-        do 
-        {
-            do
+            printf("Con que simbolo deseas Jugar?\n1 - X\n2 - O\n");
+            scanf("%i", &simjuego);
+            if (simjuego == 1)
             {
-                casillas();
-                salidax = 0, salidao = 0, continua = 0;
-                printf("Jugador 1\n");
-                printf("Ingresa Fila: ");
-                scanf("%i", &fila);
-                printf("Ingresa Columna: ");
-                scanf("%i", &columna);
-                if (dat_juego.gato[fila][columna] == nulo)
-                {
-                    dat_juego.gato[fila][columna] = jugador;
-                    gana = ganador();
-                    if (gana == 1)
-                    {
-                        casillas();
-                        printf("Felicidades jugador 1, has ganado\n");
-                        salidax = 1;
-                        continua = 2;
-                    }
-                    else if (gana == 2)
-                    {
-                        salidax = 1;
-                        continua = 1;
-                    }
-                    else if (gana == 3)
-                    {
-                        casillas();
-                        salidax = 1;
-                        continua = 2;
-                        printf("Felicidades, han empatado\n");
-                    }
-                    else
-                    {
-                        continua = 1;
-                        salidax = 1;
-                    }
-                }
-                else
-                {
-                    printf("Posicion ocupada, ingresa una posicion libre\n");
-                }
-            } while (salidax != 1);
-            if (continua == 1)
+                jugador = 'X';
+                maquina = 'O';
+            } 
+            else if (simjuego == 2)
             {
-                casillas();
-                printf("Maquina\n");
+                jugador = 'O';
+                maquina = 'X';
+            }
+            do 
+            {
                 do
                 {
-                    srand (time(NULL));
-                    fila = rand() % (2+1);
-                    columna = rand() % (2+1);
+                    casillas();
+                    salidax = 0, salidao = 0, continua = 0;
+                    printf("Jugador 1\n");
+                    printf("Ingresa Fila: ");
+                    scanf("%i", &fila);
+                    printf("Ingresa Columna: ");
+                    scanf("%i", &columna);
                     if (dat_juego.gato[fila][columna] == nulo)
                     {
-                        dat_juego.gato[fila][columna] = maquina;
+                        dat_juego.gato[fila][columna] = jugador;
                         gana = ganador();
-                        if (gana == 0)
+                        if (gana == 1)
                         {
                             casillas();
-                            printf("Ha ganado la maquina\n");
-                            salidao = 1;
+                            printf("Felicidades jugador 1, has ganado\n");
+                            salidax = 1;
                             continua = 2;
                         }
                         else if (gana == 2)
                         {
-                            salidao = 1;
+                            salidax = 1;
                             continua = 1;
                         }
                         else if (gana == 3)
                         {
                             casillas();
-                            salidao = 1;
+                            salidax = 1;
                             continua = 2;
                             printf("Felicidades, han empatado\n");
                         }
                         else
                         {
-                            salidao = 1;
                             continua = 1;
+                            salidax = 1;
                         }
                     }
-                } while (salidao != 1);
-            }    
-        } while (continua != 2);
-        printf("Desea jugar nuevamente?\n1 - Si\n2 - No\n");
-        scanf("%i", &otra);
-        if (otra == 1)
-        {
-            limpieza();
-            continua = 1;
-        } 
-    } while (continua != 2);
-    return 0;
+                    else
+                    {
+                        printf("Posicion ocupada, ingresa una posicion libre\n");
+                    }
+                } while (salidax != 1);
+                if (continua == 1)
+                {
+                    casillas();
+                    printf("Maquina\n");
+                    do
+                    {
+                        srand (time(NULL));
+                        fila = rand() % (2+1);
+                        columna = rand() % (2+1);
+                        if (dat_juego.gato[fila][columna] == nulo)
+                        {
+                            dat_juego.gato[fila][columna] = maquina;
+                            gana = ganador();
+                            if (gana == 0)
+                            {
+                                casillas();
+                                printf("Ha ganado la maquina\n");
+                                salidao = 1;
+                                continua = 2;
+                            }
+                            else if (gana == 2)
+                            {
+                                salidao = 1;
+                                continua = 1;
+                            }
+                            else if (gana == 3)
+                            {
+                                casillas();
+                                salidao = 1;
+                                continua = 2;
+                                printf("Felicidades, han empatado\n");
+                            }
+                            else
+                            {
+                                salidao = 1;
+                                continua = 1;
+                            }
+                        }
+                    } while (salidao != 1);
+                }    
+            } while (continua != 2);
+            printf("Desea jugar nuevamente?\n1 - Si\n2 - No\n");
+            scanf("%i", &otra);
+            if (otra == 1)
+            {
+                limpieza();
+                continua = 1;
+            } 
+        } while (otra != 2);
+    } while (otra != 2);
 }

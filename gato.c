@@ -9,11 +9,11 @@ char tirada(); //Tiro JvsJ
 void jugadorvsjugador(); //Base JvsJ
 void tiradavsmaquina(); //Tiro JvsM
 void jugadorvsmaquina(); //Base JvsM
+void consejo(); 
 
 struct datos
 {
     char gato[3][3]; //Matriz base del juego
-    int turno; //Numero del turno
 }dat_juego;
 
 int main(int argc, char const *argv[])
@@ -386,8 +386,9 @@ void tiradavsmaquina()
             {
                 do
                 {
-                    casillas();
+                    casillas(); 
                     salidax = 0, salidao = 0, continua = 0;
+                    consejo(); //Mostrar consejo si es posible
                     printf("Jugador 1\n");
                     printf("Ingresa Fila: ");
                     scanf("%i", &fila);
@@ -477,4 +478,41 @@ void tiradavsmaquina()
             } 
         } while (otra != 2);
     } while (otra != 2);
+}
+
+void consejo()
+{
+    char nulo = 00;
+    if (dat_juego.gato[0][0] == 'X' && dat_juego.gato[0][1] == 'X' && dat_juego.gato[0][2] == nulo)
+    {
+        printf("Se recomienda 0 - 2\n");
+    }
+    else if (dat_juego.gato[1][0] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[1][2] == nulo)
+    {
+        printf("Se recomienda 1 - 2\n");
+    }
+    else if (dat_juego.gato[2][0] == 'X' && dat_juego.gato[2][1] == 'X' && dat_juego.gato[2][2] == nulo)
+    {
+        printf("Se recomienda 2 - 2\n");
+    }
+    else if (dat_juego.gato[0][0] == 'X' && dat_juego.gato[0][1] == 'x' && dat_juego.gato[0][2] == nulo)
+    {
+        printf("Se recomienda 0 - 2\n");
+    }
+    else if (dat_juego.gato[1][0] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[1][2] == nulo)
+    {
+        printf("Se recomienda 1 - 2\n");
+    }
+    else if (dat_juego.gato[2][0] == 'X' && dat_juego.gato[2][1] == 'X' && dat_juego.gato[2][2] == nulo)
+    {
+        printf("Se recomienda 2 - 2\n");
+    }
+    else if (dat_juego.gato[0][0] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[2][2] == nulo)
+    {
+        printf("Se recomienda 2 - 2\n");
+    }
+    else if (dat_juego.gato[0][2] == 'X' && dat_juego.gato[1][1] == 'X' && dat_juego.gato[2][0] == nulo)
+    {
+        printf("Se recomienda 2 - 0\n") ;
+    }
 }
